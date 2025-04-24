@@ -13,12 +13,12 @@ export const obtenerNotasEliminadasSQL =async () =>{
 }
 
 export const obtenerCategoriasSQL = async () =>{
-    const [resultado] = await pool.query("SELECT * FROM categoria");
+    const [resultado] = await pool.query("SELECT * FROM CATEGORIA");
     return resultado
 }
 
 export const obtenerIdCategoriaSQL = async(nombre)=>{
-    const [resultado] = await pool.query("SELECT id_categoria from categoria where nombre_categoria = ?;",[nombre])
+    const [resultado] = await pool.query("SELECT id_categoria from CATEGORIA where nombre_categoria = ?;",[nombre])
     return resultado
 }
 
@@ -28,7 +28,7 @@ export const obtenerIdCategoriaSQL = async(nombre)=>{
 export const agregarNotaSQL = async (data) =>{
     const {titulo,descripcion,categoria} = data
 
-    const [hayCategoria] = await pool.query("SELECT nombre_categoria from categoria where id_categoria = ?;",[categoria])    
+    const [hayCategoria] = await pool.query("SELECT nombre_categoria from CATEGORIA where id_categoria = ?;",[categoria])    
   
     if(hayCategoria.length == 0){
         const [resultado1] = await pool.query("INSERT INTO CATEGORIA (nombre_categoria) VALUES (?);",[categoria])
@@ -46,24 +46,23 @@ export const agregarNotaSQL = async (data) =>{
 // ------------------ CONSULTAS PUT ---------------------------
 
 export const eliminarNotaSQL = async (id) =>{
-    const [resultado] = await pool.query("update notas set estado = 'eliminado' where id_notas = ?;",[id]);
+    const [resultado] = await pool.query("update NOTAS set estado = 'eliminado' where id_notas = ?;",[id]);
     return resultado
 }
 
 export const restaurarNotaSQL = async (id) =>{
-    const [resultado] = await pool.query("update notas set estado = 'valido' where id_notas = ?;",[id]);
+    const [resultado] = await pool.query("update NOTAS set estado = 'valido' where id_notas = ?;",[id]);
     return resultado
 }
 
 export const actualizarNotaSQL = async (nota) =>{
-    const dato = await pool.query("SELECT nombre_categoria from categoria where id_categoria = ?",[nota.categoria])
+    const dato = await pool.query("SELECT nombre_categoria from CATEGORIA where id_categoria = ?",[nota.categoria])
     if(dato[0].length === 0){
         const [resultado1] = await pool.query("INSERT INTO CATEGORIA (nombre_categoria) VALUES (?);",[nota.categoria])
-        console.log(resultado1)
-        const [resultado] = await pool.query("update notas set titulo= ?,descripcion = ?,id_categoria= ?, fecha_actualizacion = CURDATE() where id_notas = ?;",[nota.titulo,nota.descripcion,resultado1.insertId,nota.id]);
+        const [resultado] = await pool.query("update NOTAS set titulo= ?,descripcion = ?,id_categoria= ?, fecha_actualizacion = CURDATE() where id_notas = ?;",[nota.titulo,nota.descripcion,resultado1.insertId,nota.id]);
         return resultado
     }else{
-          const [resultado] = await pool.query("update notas set titulo = ?,descripcion = ?, id_categoria = ?,fecha_actualizacion =CURDATE()  where id_notas = ?;",[nota.titulo,nota.descripcion,nota.categoria,nota.id]);
+          const [resultado] = await pool.query("update NOTAS set titulo = ?,descripcion = ?, id_categoria = ?,fecha_actualizacion =CURDATE()  where id_notas = ?;",[nota.titulo,nota.descripcion,nota.categoria,nota.id]);
         return resultado
      }
 }
@@ -73,6 +72,6 @@ export const actualizarNotaSQL = async (nota) =>{
 
 export const eliminarNotaDefinitivoSQL =async(id) =>{
     
-    const [resultado] = await pool.query("delete from notas where id_notas=?;",[id]);
+    const [resultado] = await pool.query("delete from NOTAS where id_notas=?;",[id]);
     return resultado
 }
