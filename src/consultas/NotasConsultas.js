@@ -67,6 +67,13 @@ export const actualizarNotaSQL = async (nota) =>{
      }
 }
 
+export const obtenerNotasFiltradasSQL = async (categoria) =>{
+
+    const [dato] = await pool.query("SELECT id_categoria from CATEGORIA where nombre_categoria = ?",[categoria]) 
+    const [resultado] = await pool.query("select n.id_notas, n.titulo, n.descripcion, n.estado, n.fecha_creacion, n.fecha_actualizacion, c.nombre_categoria from NOTAS n JOIN CATEGORIA c on n.id_categoria = c.id_categoria where c.id_categoria= ? AND n.estado = 'valido';",[dato[0].id_categoria]);
+    return resultado
+}
+
 
 // ------------------ CONSULTAS DELETE ---------------------------
 

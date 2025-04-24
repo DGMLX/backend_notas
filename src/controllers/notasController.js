@@ -1,4 +1,4 @@
-import { actualizarNotaSQL, agregarNotaSQL, eliminarNotaDefinitivoSQL, eliminarNotaSQL, obtenerCategoriasSQL, obtenerIdCategoriaSQL, obtenerNotasEliminadasSQL, obtenerNotasSQL, restaurarNotaSQL } from "../consultas/NotasConsultas.js";
+import { actualizarNotaSQL, agregarNotaSQL, eliminarNotaDefinitivoSQL, eliminarNotaSQL, obtenerCategoriasSQL, obtenerIdCategoriaSQL, obtenerNotasEliminadasSQL, obtenerNotasFiltradasSQL, obtenerNotasSQL, restaurarNotaSQL } from "../consultas/NotasConsultas.js";
 
 
 // --------------------- PETICIONES GET -------------------------
@@ -27,6 +27,17 @@ export const obtenerCategorias = async(req,res) =>{
         res.json(data)
     } catch (error) {
         res.status(404).json({mensaje:"No se pudieron obtener las cateogrias"})
+    }
+}
+
+export const obtenerNotasFiltradas = async(req,res)=>{
+    try {
+        const {categoria} = req.params
+        console.log(categoria)
+        const data = await obtenerNotasFiltradasSQL(categoria)
+        res.json(data)
+    } catch (error) {
+        res.status(404).json({mensaje:"No se pudieron obtener las notas filtradas"})
     }
 }
 
