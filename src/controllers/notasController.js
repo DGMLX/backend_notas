@@ -1,8 +1,6 @@
 import { actualizarNotaSQL, agregarNotaSQL, eliminarNotaDefinitivoSQL, eliminarNotaSQL, obtenerCategoriasSQL, obtenerIdCategoriaSQL, obtenerNotasEliminadasSQL, obtenerNotasFiltradasSQL, obtenerNotasSQL, restaurarNotaSQL } from "../consultas/NotasConsultas.js";
 
-
 // --------------------- PETICIONES GET -------------------------
-
 export const obtenerNotas = async(req,res) =>{
     try {
         const data = await obtenerNotasSQL();
@@ -52,7 +50,6 @@ export const obtenerIdCategoria = async(req,res) =>{
 }
 
 // --------------------- PETICIONES POST -------------------------
-
 export const agregarNota = async(req,res) =>{
     try {
         const data = await agregarNotaSQL(req.body);
@@ -63,10 +60,7 @@ export const agregarNota = async(req,res) =>{
     }
 }
 
-
-
 // --------------------- PETICIONES PUT -------------------------
-
 export const eliminarNota = async(req,res)=>{
     try {
         const {id} = req.params
@@ -99,11 +93,7 @@ export const actualizarNota = async(req,res) =>{
     }
 }
 
-
-
-
 // --------------------- PETICIONES DELETE -------------------------
-
 export const eliminarNotaDefinitivo = async(req,res) =>{
     try {
         const {id} = req.params

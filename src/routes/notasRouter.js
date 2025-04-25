@@ -8,13 +8,10 @@ router.get("/categorias",obtenerCategorias);
 router.get("/notasEliminadas",obtenerNotasEliminadas);
 router.get("/obtenerIdCategoria/:nombre",obtenerIdCategoria);
 router.get("/obtenerNotasFiltradas/:categoria",obtenerNotasFiltradas)
-
 router.post("/agregarNota",agregarNota);
-
 router.put("/eliminarNota/:id",eliminarNota);
 router.put("/restaurarNota/:id",restaurarNota);
 router.put("/actualizarNota",actualizarNota);
-
 router.delete("/eliminarNotaDefinitiva/:id",eliminarNotaDefinitivo);
 
 export default router;
