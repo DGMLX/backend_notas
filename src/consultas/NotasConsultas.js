@@ -3,12 +3,12 @@ import { pool } from "../../conexion.js"
 // ------------------ CONSULTAS GET ---------------------------
 
 export const obtenerNotasSQL =async () =>{
-    const [resultado] = await pool.query("SELECT n.id_notas,n.titulo,n.descripcion,n.fecha_creacion,n.fecha_actualizacion,c.nombre_categoria FROM NOTAS n JOIN CATEGORIA c ON n.id_categoria = c.id_categoria WHERE n.estado = ?;",['valido'])
+    const [resultado] = await pool.query("SELECT n.id_notas,n.titulo,n.descripcion,n.fecha_creacion,n.fecha_actualizacion,c.nombre_categoria FROM NOTAS n JOIN CATEGORIA c ON n.id_categoria = c.id_categoria WHERE n.estado = ? order by n.id_notas desc;",['valido'])
     return resultado
 }
 
 export const obtenerNotasEliminadasSQL =async () =>{
-    const [resultado] = await pool.query("SELECT n.id_notas,n.titulo,n.descripcion,n.fecha_creacion,n.fecha_actualizacion,c.nombre_categoria FROM NOTAS n JOIN CATEGORIA c ON n.id_categoria = c.id_categoria WHERE n.estado = ?;",['eliminado'])
+    const [resultado] = await pool.query("SELECT n.id_notas,n.titulo,n.descripcion,n.fecha_creacion,n.fecha_actualizacion,c.nombre_categoria FROM NOTAS n JOIN CATEGORIA c ON n.id_categoria = c.id_categoria WHERE n.estado = ? order by n.id_notas desc;",['eliminado'])
     return resultado
 }
 
